@@ -1,13 +1,11 @@
 function factorial(n) {
-  let result = n;
-  if (n === 0 || n === 1) {
-    console.log(1);
-  } else if (n < 0){
-    console.log("Факториал может вычисляться только с натуральными положительными числами");
+  let result = 1;
+  if (n < 0) {
+    return "Факториал может вычисляться только с натуральными положительными числами";
   } else {
-    for (let i = 1; i < n; i++) {
+    for (let i = n; i > 1; i--) {
       result = result * i;
     }
-    console.log(result);
+    return result;
   }
 }
