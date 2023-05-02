@@ -46,6 +46,4 @@ function initCarousel() {
 
   button_right.addEventListener('click', swipeRight);
   button_left.addEventListener('click', swipeLeft);
-
-
 }
