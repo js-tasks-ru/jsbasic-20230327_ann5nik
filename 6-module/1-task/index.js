@@ -24,13 +24,11 @@ export default class UserTable {
       this.elem.insertAdjacentHTML('beforeEnd', `<tr><td>${item.name}</td><td>${item.age}</td><td>${item.salary}</td><td>${item.city}</td><td><button class = 'button'>X</button></td></tr>`);
     }
 
-    this.buttons = this.elem.querySelectorAll('.button');
-
-    for (let btn of this.buttons) {
-      btn.addEventListener('click', function (event) {
+    this.elem.addEventListener('click', (event) => {
+      if (event.target.tagName === 'BUTTON') {
         event.target.closest('tr').remove();
-      })
-    }
+      }
+    })
 
 
   }
