@@ -31,7 +31,7 @@ export default class RibbonMenu {
 
         this.elem.dispatchEvent(
           new CustomEvent('ribbon-select', {
-            detail: a.getAttribute('data-id'),
+            detail: a.dataset.id,
             bubbles: true
           })
         );
