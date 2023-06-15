@@ -1,23 +1,22 @@
-import createElement from "../../assets/lib/create-element";
+import createElement from "../../assets/lib/create-element.js";
 
 export default class StepSlider {
   constructor({ steps, value = 0 }) {
     this.steps = steps;
     this.value = value;
     this.elem = createElement(`<div class="slider">
-      <div class="slider__thumb">
+      <div class="slider__thumb" style= "left: 0%;">
         <span class="slider__value">${this.value}</span>
       </div>
       <div class="slider__progress" style = "width: 0%;"></div>
-      <div class="slider__steps">
-      </div>
+      <div class="slider__steps"></div>
     </div>`);
 
-    this.crateSteps();
+    this.createSteps();
     this.changeSliderValue();
   }
 
-  crateSteps() {
+  createSteps() {
     let sliderSteps = this.elem.querySelector('.slider__steps');
     let step = '';
 
@@ -37,9 +36,9 @@ export default class StepSlider {
       let left = event.clientX - this.elem.getBoundingClientRect().left;
       let leftRelative = left / this.elem.offsetWidth;
       let activeSteps = this.elem.querySelector('.slider__step-active');
-      activeSteps.classList.remove('.slider__step-active');
+      activeSteps.classList.remove('slider__step-active');
       let sliderSteps = this.elem.querySelector('.slider__steps');
-      let segments = steps - 1;
+      let segments = this.steps - 1;
       let approximateValue = leftRelative * segments;
       let value = Math.round(approximateValue);
       let valuePercents = value / segments * 100;
@@ -47,16 +46,14 @@ export default class StepSlider {
       thumb.style.left = valuePercents + '%';
       progress.style.width = valuePercents + '%';
       sliderValue.textContent = value;
-      sliderSteps.children[value].classList.add('slider__step-active')
+      sliderSteps.children[value].classList.add('slider__step-active');
+
+      this.elem.dispatchEvent(
+        new CustomEvent('slider-change', {
+          detail: Number(sliderValue.textContent),
+          bubbles: true
+        })
+      )
     })
-
-    this.elem.dispatchEvent(
-      new CustomEvent('slider-change', {
-        detail: this.value,
-        bubbles: true
-      })
-    )
   }
-
-
 }
